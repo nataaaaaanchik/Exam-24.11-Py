@@ -9,12 +9,13 @@ try:
 
     soup = BeautifulSoup(response.text, 'html.parser')
 
-    print(soup.prettify()[:1000])
+    quotes = soup.select('div.quote > q')
 
-    quotes = soup.find_all('q')
-
-    for quote in quotes:
-        print(quote.get_text(strip=True))
+    if quotes:
+        for i, quote in enumerate(quotes, start=1):
+            print(f"{i}. {quote.get_text(strip=True)}")
+    else:
+        print("Цитати не знайдено. Перевірте HTML-код сторінки або селектор.")
 
 except requests.exceptions.RequestException as e:
     print(f"Помилка при завантаженні сторінки: {e}")
