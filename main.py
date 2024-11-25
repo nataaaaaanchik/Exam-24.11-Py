@@ -1,5 +1,11 @@
 class Temperature:
     def __init__(self, temperature, unit):
+        self._validate(temperature, unit)
+        self.temperature = temperature
+        self.unit = unit
+
+    def _validate(self, temperature, unit):
+        """Перевіряє допустимість значень температури та одиниць вимірювання."""
         allowed_units = ['C', 'K', 'F']
         if unit not in allowed_units:
             raise ValueError("Одиниця вимірювання повинна бути 'C', 'K' або 'F'.")
@@ -9,8 +15,6 @@ class Temperature:
             raise ValueError("Температура не може бути нижчою за 0K.")
         if unit == 'F' and temperature < -459.67:
             raise ValueError("Температура не може бути нижчою за -459.67°F.")
-        self.temperature = temperature
-        self.unit = unit
 
     def convert_to(self, new_unit):
         if new_unit not in ['C', 'K', 'F']:
