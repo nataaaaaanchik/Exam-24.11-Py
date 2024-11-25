@@ -8,7 +8,10 @@ try:
     response.raise_for_status()
 
     soup = BeautifulSoup(response.text, 'html.parser')
-    quotes = soup.find_all('div', class_='quote')
+
+    print(soup.prettify()[:1000])
+
+    quotes = soup.find_all('q')
 
     for quote in quotes:
         print(quote.get_text(strip=True))
